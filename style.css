@@ -4,8 +4,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(45, 44, 44);
-    color: white;
+    background-color: darkgrey;
 }
 #image{
     transition: all 0.25s;
@@ -22,7 +21,6 @@ body{
     align-items: center;
     justify-content: center;
     width: 90vw;
-    margin-top: 50px;
 }
 .hm{
     transition: all 0.25s;
@@ -58,11 +56,37 @@ body{
 }
 #home:hover{
     text-decoration: none;
-    color: rgb(213, 198, 198);
+    color: rgb(56, 52, 52);
 }
 #error{
     display: none;
 }
 #nameInApi,#id,#type{
     margin: 0px;
+}
+#suggestions {
+    list-style: none;
+    padding: 0;
+    margin: 2px 0 0 0;
+    width: 178px;
+    background: white;
+    border: 1px solid #aaa;
+    max-height: 150px;
+    overflow-y: auto;
+}
+#suggestions li {
+    padding: 2px 8px;
+    cursor: pointer;
+    color: rgb(65, 63, 63);
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    font-size: 14px;
+}
+#suggestions li:hover{
+    background: lightgray;
+}
+.highlight{
+    font-weight: bold;
+    color: black;
 }

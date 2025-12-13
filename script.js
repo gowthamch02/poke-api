@@ -5,6 +5,9 @@ const home = document.getElementById('home');
 const nameInApi = document.getElementById("nameInApi");
 const id = document.getElementById("id");
 const type = document.getElementById("type");
+let pkmnNames = [];
+const suggestions = document.getElementById("suggestions");
+const input = document.getElementById("pkmnName");
 
 let j = 1;
 let range = 54;
@@ -59,6 +62,8 @@ async function pkmnFetch() {
 
         nameInApi.textContent = `Name: ${pkmnName}`;
         id.textContent = `ID: ${data.id}`;
+
+        suggestions.innerHTML = "";
     }
     catch(error){
         image.src = "";
@@ -92,6 +97,8 @@ async function pkmnShinyFetch() {
 
         nameInApi.textContent = `Name: ${pkmnName}`;
         id.textContent = `ID: ${data.id}`;
+
+        suggestions.innerHTML = "";
     }
     catch(error){
         image.src = "";
@@ -110,6 +117,7 @@ home.addEventListener("click", () => {
     nameInApi.textContent = ``;
     id.textContent = ``;
     image.src = "";
+    suggestions.innerHTML = "";
     document.getElementById("pkmnName").value = '';
     j = 1;
     range = 54;
@@ -126,4 +134,43 @@ back.addEventListener("click", () => {
     range -= 54;
     j-= 54;
     homescreen();
+})
+
+fetch("https://pokeapi.co/api/v2/pokemon?limit=1025")
+    .then(res => res.json())
+    .then(data => {
+        pkmnNames = data.results.map(p => p.name);
+    });
+
+input.addEventListener("input", () => {
+
+    const image = document.getElementById("image");
+
+    nameInApi.textContent = "";
+    id.textContent = "";
+    image.src = "";
+
+    const value = input.value.toLowerCase();
+    suggestions.innerHTML = "";
+
+    if (value.length === 0) return;
+
+    const filtered = pkmnNames.filter(name => name.startsWith(value));
+
+    filtered.forEach(name => {
+        
+        const li = document.createElement("li");
+
+        const prefix = name.slice(0, value.length);
+        const suffix = name.slice(value.length);
+
+        li.innerHTML = `<span class="highlight">${prefix}</span>${suffix}`;
+
+        li.addEventListener("click", () => {
+            input.value = name;
+            suggestions.innerHTML = "";
+        });
+
+        suggestions.appendChild(li);
+    })
 })
