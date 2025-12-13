@@ -76,7 +76,6 @@ async function pkmnShinyFetch() {
     next.textContent = "";
     back.textContent = "";
     const image = document.getElementById("image");
-    const errorMsg = document.getElementById("error");
 
     try{
         const pkmnName = document.getElementById("pkmnName").value.toLowerCase();
